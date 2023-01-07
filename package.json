@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNotest --watch",
-    "test:staged": "jest --passWithNotest",
+    "test": "jest --passWithNoTests --watch",
+    "test:staged": "jest --passWithNoTests",
     "prepare": "husky install"
   },
   "repository": {
