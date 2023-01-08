@@ -132,4 +132,21 @@ describe('Signup Controller', () => {
     expect(response.statusCode).toBe(500)
     expect(response.body).toEqual(new ServerError())
   })
+
+  it('should return 400 if password does not match passwordConfirmation', () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        name: 'test-name',
+        email: 'invalid@mail.com',
+        password: 'test-password',
+        passwordConfirmation: 'different-test-password'
+      }
+    }
+
+    const response = sut.handle(httpRequest)
+    expect(response.statusCode).toBe(400)
+    expect(response.body).toEqual(new MissingParamError('passwordConfirmation'))
+  })
 })
