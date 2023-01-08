@@ -15,4 +15,12 @@ describe('Email validator adapter', () => {
     const isValid = sut.isValid('valid@mail.com')
     expect(isValid).toBeTruthy()
   })
+
+  test('should return true if validator returns true', () => {
+    const sut = new EmailValidatorAdapter()
+    const emailValidatorSpy = jest.spyOn(validator, 'isEmail').mockReturnValueOnce(true)
+    const isValid = sut.isValid('valid@mail.com')
+    expect(isValid).toBeTruthy()
+    expect(emailValidatorSpy).toBeCalledWith('valid@mail.com')
+  })
 })
