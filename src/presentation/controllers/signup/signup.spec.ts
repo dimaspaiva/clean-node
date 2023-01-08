@@ -228,7 +228,7 @@ describe('Signup Controller', () => {
 
     const response = sut.handle(httpRequest)
 
-    expect(response.statusCode).toBe(200)
+    expect(response.statusCode).toBe(201)
     expect(response.body).toEqual({
       id: 'any-random-id',
       name: httpRequest.body.name,
