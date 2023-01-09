@@ -6,10 +6,24 @@ class EncryptStub {
   }
 }
 
+interface SutTypes {
+  encryptStub: EncryptStub
+  sut: DBAddAccount
+}
+
+const makeSut = (): SutTypes => {
+  const encryptStub = new EncryptStub()
+  const sut = new DBAddAccount(encryptStub)
+
+  return {
+    encryptStub,
+    sut
+  }
+}
+
 describe('DBAddAccount UseCase', () => {
   it('should call Encrypter with correct password', async () => {
-    const encryptStub = new EncryptStub()
-    const sut = new DBAddAccount(encryptStub)
+    const { encryptStub, sut } = makeSut()
     const encryptSpy = jest.spyOn(encryptStub, 'encrypt')
 
     const accountData = {
