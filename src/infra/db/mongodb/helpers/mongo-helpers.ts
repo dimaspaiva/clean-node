@@ -1,4 +1,4 @@
-import { Collection, MongoClient, WithId } from 'mongodb'
+import { Collection, MongoClient, ObjectId, WithId } from 'mongodb'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class MongoHelper {
@@ -22,14 +22,16 @@ export class MongoHelper {
     const collection = this.getCollection(collectionName)
 
     const { insertedId } = await collection.insertOne(document)
-    const id = insertedId.toHexString()
-
     const { _id, ...result } = await collection.findOne<WithId<Omit<T, 'id'>>>({ _id: insertedId })
-    const inserted = {
-      id,
-      ...result
-    } as unknown as T
 
-    return inserted
+    return this.map<T>(insertedId, result)
+  }
+
+  private static map <T>(id: ObjectId, document: any): T {
+    const stringId = id.toString()
+    return {
+      id: stringId,
+      ...document
+    } as unknown as T
   }
 }
