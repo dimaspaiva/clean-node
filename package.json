@@ -10,6 +10,7 @@
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "jest --passWithNoTests --findRelatedTests",
     "test:ci": "npm test -- --coverage --no-cache",
+    "test:debug": "jest --passWithNoTests --coverage=false --watch",
     "prepare": "husky install"
   },
   "repository": {
