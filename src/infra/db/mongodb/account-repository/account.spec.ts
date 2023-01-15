@@ -1,6 +1,14 @@
 import { MongoHelper } from '../helpers/mongo-helpers'
 import { AccountMongoRepository } from './account'
 
+const makeSut = (): { sut: AccountMongoRepository } => {
+  const sut = new AccountMongoRepository()
+
+  return {
+    sut
+  }
+}
+
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect()
@@ -10,8 +18,13 @@ describe('Account Mongo Repository', () => {
     await MongoHelper.close()
   })
 
+  beforeEach(async () => {
+    const accountCollection = MongoHelper.getCollection('accounts')
+    await accountCollection.deleteMany({})
+  })
+
   it('should return an account on success', async () => {
-    const sut = new AccountMongoRepository()
+    const { sut } = makeSut()
     const accountData = {
       name: 'test name',
       email: 'test@mail.com',
