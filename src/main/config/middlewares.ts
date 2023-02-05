@@ -1,8 +1,6 @@
 import { Express } from 'express'
 
-import { bodyParse } from '../middlewares/bodyParse'
-import { contentType } from '../middlewares/content-type'
-import { cors } from '../middlewares/cors'
+import { bodyParse, contentType, cors } from '../middlewares'
 
 export default (app: Express): void => {
   app.use(bodyParse)
