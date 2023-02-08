@@ -4,8 +4,8 @@ import { Collection, MongoClient, ObjectId, WithId } from 'mongodb'
 export class MongoHelper {
   static client: MongoClient
 
-  public static async connect (): Promise<void> {
-    this.client = await MongoClient.connect(process.env.MONGO_URL)
+  public static async connect (mongoUrl: string): Promise<void> {
+    this.client = await MongoClient.connect(mongoUrl)
   }
 
   public static async close (): Promise<void> {
