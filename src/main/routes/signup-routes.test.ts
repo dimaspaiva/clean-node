@@ -29,6 +29,6 @@ describe('Signup Route', () => {
     await request(app)
       .post('/signup')
       .send(testUser)
-      .expect(200)
+      .expect(201)
   })
 })
