@@ -63,9 +63,11 @@ describe('Signup Controller', () => {
         passwordConfirmation: 'test-password'
       }
     }
+    const expectedErrorMessage = new MissingParamError('name').message
+
     const response = await sut.handle(httpRequest)
     expect(response.statusCode).toBe(400)
-    expect(response.body).toEqual(new MissingParamError('name'))
+    expect(response.body.errorMessage).toEqual(expectedErrorMessage)
   })
 
   it('should return 400 if no email is provided', async () => {
@@ -77,9 +79,11 @@ describe('Signup Controller', () => {
         passwordConfirmation: 'test-password'
       }
     }
+    const expectedMessage = new MissingParamError('email').message
+
     const response = await sut.handle(httpRequest)
     expect(response.statusCode).toBe(400)
-    expect(response.body).toEqual(new MissingParamError('email'))
+    expect(response.body.errorMessage).toEqual(expectedMessage)
   })
 
   it('should return 400 if no password is provided', async () => {
@@ -91,9 +95,11 @@ describe('Signup Controller', () => {
         passwordConfirmation: 'test-password'
       }
     }
+    const expectedErrorMessage = new MissingParamError('password').message
+
     const response = await sut.handle(httpRequest)
     expect(response.statusCode).toBe(400)
-    expect(response.body).toEqual(new MissingParamError('password'))
+    expect(response.body.errorMessage).toEqual(expectedErrorMessage)
   })
 
   it('should return 400 if no confirmPassword is provided', async () => {
@@ -105,9 +111,11 @@ describe('Signup Controller', () => {
         password: 'test-password'
       }
     }
+    const expectedErrorMessage = new MissingParamError('passwordConfirmation').message
+
     const response = await sut.handle(httpRequest)
     expect(response.statusCode).toBe(400)
-    expect(response.body).toEqual(new MissingParamError('passwordConfirmation'))
+    expect(response.body.errorMessage).toEqual(expectedErrorMessage)
   })
 
   it('should return 400 if invalid email is provided', async () => {
@@ -121,10 +129,11 @@ describe('Signup Controller', () => {
         passwordConfirmation: 'test-password'
       }
     }
+    const expectedErrorMessage = new InvalidParamError('email').message
 
     const response = await sut.handle(httpRequest)
     expect(response.statusCode).toBe(400)
-    expect(response.body).toEqual(new InvalidParamError('email'))
+    expect(response.body.errorMessage).toEqual(expectedErrorMessage)
   })
 
   it('should call email validator with provided email', async () => {
@@ -172,10 +181,11 @@ describe('Signup Controller', () => {
         passwordConfirmation: 'different-test-password'
       }
     }
+    const expectedErrorMessage = new MissingParamError('passwordConfirmation').message
 
     const response = await sut.handle(httpRequest)
     expect(response.statusCode).toBe(400)
-    expect(response.body).toEqual(new MissingParamError('passwordConfirmation'))
+    expect(response.body.errorMessage).toEqual(expectedErrorMessage)
   })
 
   it('should call create account with correct values', async () => {
